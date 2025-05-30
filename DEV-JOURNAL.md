@@ -15,6 +15,8 @@
 ### 🤖 2. Generated Prompt with ChatGPT
 I used ChatGPT to craft a detailed AI prompt to build a faith-driven crowdfunding platform called **Shop2Give**.
 
+📄 [Read the prompt](./bolt/01_MAIN_PAGE.md)
+
 > **Prompt Summary:**
 > - Platform Name: **Shop2Give**
 > - Tagline: *"Buy with purpose. Give with heart."*
@@ -42,6 +44,7 @@ I used ChatGPT to craft a detailed AI prompt to build a faith-driven crowdfundin
 ### ✨ 5. Expanded Prompt with Campaign Seeds
 
 Generated with ChatGPT – Added seed campaigns:
+📄 [Read the prompt](./bolt/02_FEATURE_CAMPAIGN_DETAIL_PAGE.md)
 
 - **Lough Swilly Tragedy** (Goal: €40,000)
 - **Royal Mission School – Sifra Bachtiar** (Goal: €7,000)
@@ -75,6 +78,31 @@ Built a product section into each campaign page:
 - Project name: **Shop2Give**
 - Final write-up, media, and GitHub repo submitted  
 🔗 [View Submission](https://devpost.com/software/shop2give)
+
+---
+
+## 📅 9. Created Daily Journal
+
+Started logging development progress and key learnings in a daily format.  
+📄 [Daily Logs](./DEV_JOURNAL_DAILY.md)
+
+---
+
+## 🔀 10. Merged Feature Branch
+
+Merged `feature/detail-campaign` into the `main` branch after successful deployment and testing.  
+🔗 [View merge commit](https://github.com/elky-bachtiar/shop2give/commit/<replace-with-merge-sha>)
+
+---
+
+## 🧠 11. Organized Prompts in `./bolt` Directory
+
+Created modular prompt files for easy tracking:
+- `./bolt/01_MAIN_PAGE.md`  
+- `./bolt/02_FEATURE_CAMPAIGN_DETAIL_PAGE.md`  
+- More to come as features are added...
+
+Linked each prompt file in this journal for traceability.
 
 ---
 
