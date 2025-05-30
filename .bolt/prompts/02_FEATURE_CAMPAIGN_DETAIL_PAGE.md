@@ -1,3 +1,4 @@
+Prompt date: 05-30-2025
 Build Campaign Detail Page for Shop2Give Build a dynamic Campaign Detail Page for the Shop2Give platform, a nonprofit crowdfunding site that merges fundraising with faith-based product support.
 📄 Page Requirements
 🏷️ Campaign Content Includes:

@@ -28,7 +28,7 @@ I used ChatGPT to craft a detailed AI prompt to build a faith-driven crowdfundin
 >   - Donation tracker, sidebar widget, secure payouts
 
 ### 💻 3. Deployed MVP using Bolt.new
-- Prompt inserted into [Bolt.new](https://bolt.new)
+- Prompt inserted into [Bolt.new](https://bolt.new/?rid=dm8ttl)
 - Connected to GitHub
 - 🚀 Initial deployment:  
   🔗 https://github.com/elky-bachtiar/shop2give/commit/7722dac6114b10392be85f0fd686587252511207
