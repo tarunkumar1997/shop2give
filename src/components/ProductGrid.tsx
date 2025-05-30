@@ -7,8 +7,12 @@ type ProductGridProps = {
 };
 
 export function ProductGrid({ products }: ProductGridProps) {
+  if (products.length === 0) {
+    return null;
+  }
+
   return (
-    <section className="py-12">
+    <section className="border-t border-gray-200 py-12">
       <h2 className="mb-8 text-2xl font-bold text-blue-900">
         Support this cause by purchasing a gift
       </h2>
