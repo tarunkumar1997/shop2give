@@ -20,3 +20,11 @@ export function calculateProgress(raised: number, goal: number): number {
   if (goal <= 0) return 0;
   return Math.min(100, Math.round((raised / goal) * 100));
 }
+
+// Generate URL-friendly slug from title
+export function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
