@@ -1,3 +1,4 @@
+Prompt date: 05-30-2025
 Build a crowdfunding SaaS platform using Vite named Shop2Give by Givio.
 
 🎯 Tagline: "Buy with purpose. Give with heart."
