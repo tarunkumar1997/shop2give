@@ -7,6 +7,13 @@ import { ProductGrid } from '../components/ProductGrid';
 import { campaigns } from '../data/campaigns';
 import { products } from '../data/products';
 
+// Helper function to get random products
+function getRandomProducts(count: number, excludeIds: string[] = []) {
+  const availableProducts = products.filter(p => !excludeIds.includes(p.id));
+  const shuffled = [...availableProducts].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
 export function CampaignPage() {
   const { identifier } = useParams();
   const campaign = campaigns.find(c => c.id === identifier || c.slug === identifier);
@@ -16,6 +23,9 @@ export function CampaignPage() {
   }
 
   const campaignProducts = products.filter(p => p.campaignId === campaign.id);
+  const displayProducts = campaignProducts.length > 0 
+    ? campaignProducts 
+    : getRandomProducts(4);
   
   const recentDonations = [
     { name: "Amy Schuster", amount: 25 },
@@ -57,7 +67,10 @@ export function CampaignPage() {
                 </p>
               </div>
 
-              <ProductGrid products={campaignProducts} />
+              <ProductGrid 
+                products={displayProducts} 
+                title={campaignProducts.length === 0 ? "Featured Products" : undefined}
+              />
             </div>
 
             <div>
