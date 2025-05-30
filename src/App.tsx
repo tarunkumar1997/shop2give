@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/campaign/:id" element={<CampaignPage />} />
+        <Route path="/campaigns/:identifier" element={<CampaignPage />} />
       </Routes>
     </BrowserRouter>
   );

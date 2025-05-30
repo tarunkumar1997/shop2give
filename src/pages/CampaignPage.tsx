@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { DonationWidget } from '../components/DonationWidget';
@@ -8,11 +8,11 @@ import { campaigns } from '../data/campaigns';
 import { products } from '../data/products';
 
 export function CampaignPage() {
-  const { id } = useParams();
-  const campaign = campaigns.find(c => c.id === id);
+  const { identifier } = useParams();
+  const campaign = campaigns.find(c => c.id === identifier || c.slug === identifier);
 
   if (!campaign) {
-    return <div>Campaign not found</div>;
+    return <Navigate to="/" replace />;
   }
 
   const campaignProducts = products.filter(p => p.campaignId === campaign.id);
