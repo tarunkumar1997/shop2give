@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import { Header } from '../components/Header';
@@ -6,9 +6,28 @@ import { Footer } from '../components/Footer';
 import { Button } from '../components/ui/Button';
 import { useCart } from '../lib/cart';
 import { formatCurrency } from '../lib/utils';
+import { createCheckoutSession } from '../lib/stripe';
 
 export function CartPage() {
-  const { items, removeItem, updateQuantity, total } = useCart();
+  const { items, removeItem, updateQuantity, total, clearCart } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    try {
+      setIsLoading(true);
+      const url = await createCheckoutSession(
+        items[0].productId, // Using first item's price ID for now
+        'payment',
+        `${window.location.origin}/success`,
+        `${window.location.origin}/cancel`,
+        items[0].campaignId
+      );
+      window.location.href = url;
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      setIsLoading(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -95,7 +114,13 @@ export function CartPage() {
                     </div>
                   </div>
                 </div>
-                <Button className="mt-6 w-full">Proceed to Checkout</Button>
+                <Button 
+                  className="mt-6 w-full"
+                  onClick={handleCheckout}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Processing...' : 'Proceed to Checkout'}
+                </Button>
               </div>
             </div>
           </div>
