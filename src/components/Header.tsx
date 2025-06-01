@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Search } from 'lucide-react';
 import { Logo } from './Logo';
 import { Button } from './ui/Button';
 import { useCart } from '../lib/cart';
@@ -8,6 +8,7 @@ import { useCart } from '../lib/cart';
 export function Header() {
   const { items } = useCart();
   const itemCount = items.length;
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md">
@@ -32,6 +33,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center space-x-4">
+          <button
+            onClick={() => navigate('/search')}
+            className="text-blue-900 hover:text-blue-700"
+            aria-label="Search"
+          >
+            <Search className="h-6 w-6" />
+          </button>
           <Link to="/cart" className="relative">
             <ShoppingCart className="h-6 w-6 text-blue-900" />
             {itemCount > 0 && (
