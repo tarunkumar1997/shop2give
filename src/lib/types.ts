@@ -1,4 +1,4 @@
-import { LucideIcon, Stethoscope, Flame, Heart, GraduationCap, Dog, Sprout, Building2, Users, Trophy, Palette, Calendar, CloudSun, Users2, Football, Plane, HandMetal, Star } from 'lucide-react';
+import { DivideIcon as LucideIcon, Stethoscope, Flame, Heart, GraduationCap, Dog, Sprout, Building2, Users, Trophy, Palette, Calendar, CloudSun, Users2, FolderRoot as Football, Plane, HandMetal, Star } from 'lucide-react';
 
 export type Category = {
   id: string;
