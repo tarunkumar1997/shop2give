@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { CategoryGrid } from '../components/CategoryGrid';
+import { FeaturedCategories } from '../components/FeaturedCategories';
 
 export function CategoriesPage() {
   return (
@@ -15,6 +16,10 @@ export function CategoriesPage() {
           </p>
         </div>
         <CategoryGrid />
+        <div className="mt-16">
+          <h2 className="mb-8 text-3xl font-bold text-gray-900">Featured Categories</h2>
+          <FeaturedCategories />
+        </div>
       </main>
       <Footer />
     </div>
