@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { AuthPage } from './pages/AuthPage';
 import { CampaignPage } from './pages/CampaignPage';
 import { CampaignsPage } from './pages/CampaignsPage';
+import { CategoriesPage } from './pages/CategoriesPage';
 import { CategoryPage } from './pages/CategoryPage';
 import { ProductPage } from './pages/ProductPage';
 import { ProductsPage } from './pages/ProductsPage';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/campaigns/:slug" element={<CampaignPage />} />
         <Route path="/campaigns/create" element={<CreateCampaignPage />} />
+        <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductPage />} />

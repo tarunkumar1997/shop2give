@@ -20,11 +20,11 @@ export function Header() {
           <Link to="/campaigns" className="text-sm font-medium text-blue-900 hover:text-blue-700">
             Campaigns
           </Link>
-          <Link to="/products" className="text-sm font-medium text-blue-900 hover:text-blue-700">
-            Products
-          </Link>
           <Link to="/categories" className="text-sm font-medium text-blue-900 hover:text-blue-700">
             Categories
+          </Link>
+          <Link to="/products" className="text-sm font-medium text-blue-900 hover:text-blue-700">
+            Products
           </Link>
           <Link to="/about" className="text-sm font-medium text-blue-900 hover:text-blue-700">
             About Us
