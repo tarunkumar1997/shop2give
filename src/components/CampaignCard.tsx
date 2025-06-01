@@ -15,8 +15,8 @@ export function CampaignCard({ campaign }: CampaignCardProps) {
   const progress = calculateProgress(campaign.amountRaised, campaign.goal);
 
   return (
-    <Link to={`/campaigns/${campaign.slug}`}>
-      <Card className="overflow-hidden transition-transform duration-300 hover:translate-y-[-4px]">
+    <Link to={`/campaigns/${campaign.slug}`} className="block">
+      <Card className="h-full overflow-hidden transition-transform duration-300 hover:translate-y-[-4px]">
         <div className="relative h-48 overflow-hidden">
           <img
             src={campaign.imageUrl}
