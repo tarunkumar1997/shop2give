@@ -1,5 +1,5 @@
 -- Create enum for user roles
-CREATE TYPE user_role AS ENUM ('admin', 'campaign_manager', 'contributor');
+CREATE TYPE user_role AS ENUM ('admin', 'campaign_manager',, 'charity_owner' 'contributor');
 
 -- Create user profiles table
 CREATE TABLE IF NOT EXISTS public.profiles (
