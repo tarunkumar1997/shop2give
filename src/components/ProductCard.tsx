@@ -1,29 +1,39 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardFooter } from './ui/Card';
-import { Button } from './ui/Button';
-import { Product } from '../data/products';
-import { formatCurrency } from '../lib/utils';
-import { useCart } from '../lib/cart';
+import { Card, CardContent, CardFooter } from './ui/Card.js';
+import { Button } from './ui/Button.js';
+import { Product as DataProduct } from '../data/products.js';
+import { Product } from '../types/index.js';
+import { formatCurrency } from '../lib/utils.js';
+import { useCartStore } from '../stores/cartStore.js';
 
 type ProductCardProps = {
-  product: Product;
+  product: DataProduct;
 };
 
 export function ProductCard({ product }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
-  const { addItem } = useCart();
+  const { addToCart } = useCartStore();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent navigation when clicking the button
-    addItem({
-      productId: product.id,
-      name: product.title,
+    
+    // Convert the product from DataProduct to Product type needed by cart
+    const productToAdd: Product = {
+      id: product.id,
+      name: product.title, // DataProduct has title, Product uses name
       price: product.price,
-      quantity,
       imageUrl: product.imageUrl,
+      description: '', // Required by Product type
+      category: '', // Required by Product type
+      priceId: product.id, // Use id as priceId if not available
       campaignId: product.campaignId,
-    });
+      // Pass Stripe information if available
+      stripeProductId: product.stripeProductId,
+      stripePriceId: product.stripePriceId
+    };
+    
+    addToCart(productToAdd, quantity);
   };
 
   return (

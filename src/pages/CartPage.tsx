@@ -1,28 +1,55 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { Button } from '../components/ui/Button';
-import { useCart } from '../lib/cart';
-import { formatCurrency } from '../lib/utils';
-import { createCheckoutSession } from '../lib/stripe';
+import { Header } from '../components/Header.js';
+import { Footer } from '../components/Footer.js';
+import { Button } from '../components/ui/Button.js';
+import { formatCurrency } from '../lib/utils.js';
+import { StripeService } from '../api/stripe/payments.js';
+import { useCartStore } from '../stores/cartStore.js';
+import CartItem from '../components/cart/CartItem.js';
 
 export function CartPage() {
-  const { items, removeItem, updateQuantity, total, clearCart } = useCart();
+  const { items, getTotalPrice } = useCartStore();
+  const total = getTotalPrice();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckout = async () => {
     try {
       setIsLoading(true);
-      const url = await createCheckoutSession(
-        items[0].productId, // Using first item's price ID for now
-        'payment',
+      
+      if (items.length === 0) {
+        throw new Error('Cart is empty');
+      }
+      
+      // Format cart items to match what StripeService expects
+      // This format needs to match the CartItem interface in api/stripe/payments.ts
+      const cartItems = items.map(item => ({
+        id: item.id,
+        product: {
+          id: item.product.id,
+          name: item.product.name,
+          price: item.product.price,
+          imageUrl: item.product.imageUrl,
+          priceId: item.product.priceId || item.product.id, // Use priceId if available, fallback to id
+          campaignId: item.product.campaignId
+        },
+        quantity: item.quantity
+      }));
+      
+      // Get campaign ID from the first item (if any)
+      const campaignId = items[0]?.product?.campaignId || '';
+      
+      // Call StripeService to create and redirect to checkout
+      // Note: this will redirect the user to Stripe's checkout page
+      await StripeService.createCheckoutSession(
+        cartItems,
+        undefined, // Email is optional
+        campaignId, // Now guaranteed to be a string (empty string if undefined)
         `${window.location.origin}/success`,
-        `${window.location.origin}/cancel`,
-        items[0].campaignId
+        `${window.location.origin}/cancel`
       );
-      window.location.href = url;
+      
+      // This code won't execute because the above redirects to Stripe
     } catch (error) {
       console.error('Error creating checkout session:', error);
       setIsLoading(false);
@@ -56,40 +83,8 @@ export function CartPage() {
             <div className="lg:col-span-8">
               <div className="space-y-4">
                 {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm"
-                  >
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="h-20 w-20 rounded-md object-cover"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900">{item.name}</h3>
-                      <p className="text-sm text-gray-500">
-                        {formatCurrency(item.price)}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <select
-                        value={item.quantity}
-                        onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-                        className="rounded-md border-gray-300 text-sm"
-                      >
-                        {[1, 2, 3, 4, 5].map((num) => (
-                          <option key={num} value={num}>
-                            {num}
-                          </option>
-                        ))}
-                      </select>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-gray-400 hover:text-red-500"
-                      >
-                        <Trash2 className="h-5 w-5" />
-                      </button>
-                    </div>
+                  <div key={item.id} className="rounded-lg bg-white p-4 shadow-sm">
+                    <CartItem item={item} />
                   </div>
                 ))}
               </div>
@@ -101,7 +96,7 @@ export function CartPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm text-gray-600">
                     <span>Subtotal</span>
-                    <span>{formatCurrency(total())}</span>
+                    <span>{formatCurrency(total)}</span>
                   </div>
                   <div className="flex justify-between text-sm text-gray-600">
                     <span>Processing Fee</span>
@@ -110,7 +105,7 @@ export function CartPage() {
                   <div className="border-t border-gray-200 pt-2">
                     <div className="flex justify-between font-medium text-gray-900">
                       <span>Total</span>
-                      <span>{formatCurrency(total())}</span>
+                      <span>{formatCurrency(total)}</span>
                     </div>
                   </div>
                 </div>

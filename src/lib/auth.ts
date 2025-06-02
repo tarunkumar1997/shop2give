@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from './supabase';
+import { supabase } from './supabase.js';
 import type { User } from '@supabase/supabase-js';
 
 type AuthState = {
@@ -56,7 +56,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   signIn: async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -67,7 +67,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   signUp: async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -94,12 +94,20 @@ export const useAuth = create<AuthState>((set, get) => ({
 
     if (error) throw error;
 
-    set({ profile: { ...get().profile, ...data } });
+    // Ensure profile properties are properly typed
+    const currentProfile = get().profile;
+    set({ 
+      profile: { 
+        full_name: data && 'full_name' in data && data.full_name !== undefined ? data.full_name : (currentProfile ? currentProfile.full_name : null),
+        avatar_url: data && 'avatar_url' in data && data.avatar_url !== undefined ? data.avatar_url : (currentProfile ? currentProfile.avatar_url : null),
+        bio: data && 'bio' in data && data.bio !== undefined ? data.bio : (currentProfile ? currentProfile.bio : null)
+      } 
+    });
   },
 }));
 
 // Auth context initialization
-supabase.auth.onAuthStateChange((event, session) => {
+supabase.auth.onAuthStateChange((event) => {
   if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
     useAuth.getState().initialize();
   } else if (event === 'SIGNED_OUT') {
