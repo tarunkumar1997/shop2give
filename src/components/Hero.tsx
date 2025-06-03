@@ -16,7 +16,7 @@ export function Hero() {
           Purchase goods where proceeds go directly to fundraising campaigns that you care about.
         </p>
         <Button size="lg" className="shadow-glow">
-          Start Shopping
+          Start Sho2Give
         </Button>
       </div>
     </section>
