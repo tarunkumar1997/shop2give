@@ -1,5 +1,3 @@
-import natural from 'natural';
-
 export type Category = 'medical' | 'education' | 'mission' | 'community' | 'emergency';
 
 interface CategoryKeywords {
@@ -23,8 +21,7 @@ export interface CategorySuggestion {
 export function detectCategory(text: string): CategorySuggestion | null {
   if (!text) return null;
 
-  const tokenizer = new natural.WordTokenizer();
-  const tokens = tokenizer.tokenize(text.toLowerCase()) || [];
+  const words = text.toLowerCase().split(/\s+/);
   
   let maxMatches = 0;
   let suggestedCategory: Category | null = null;
@@ -32,7 +29,7 @@ export function detectCategory(text: string): CategorySuggestion | null {
 
   Object.entries(categoryKeywords).forEach(([category, keywords]) => {
     const matches = keywords.filter(keyword => 
-      tokens.some(token => token.includes(keyword))
+      words.some(word => word.includes(keyword))
     );
 
     if (matches.length > maxMatches) {
