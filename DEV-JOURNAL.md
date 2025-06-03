@@ -106,6 +106,69 @@ Linked each prompt file in this journal for traceability.
 
 ---
 
+## 💳 12. Payment Integration with Stripe
+
+### 🪄 Created New Branch
+- Branch: `feature/stripe`  
+🔗 [View Branch](https://github.com/elky-bachtiar/shop2give/commits/feature/stripe)
+
+### 🔌 Connected Bolt.new to Stripe
+- Used Bolt.new's integration guide to connect to **Stripe API**
+- Enabled product checkout → Stripe Payment Links and test mode
+- Added basic donation flow via Stripe, with real-time redirect after purchase
+
+### 🌐 Connected to Supabase
+- Integrated **Supabase** as the project backend
+- Created and configured **Stripe customer webhooks** using **Edge Functions**
+- Webhook events handled:
+  - `checkout.session.completed` → updates donation records
+  - `invoice.paid` → logs donor + updates progress ring
+- Edge Functions written in TypeScript using Supabase CLI
+- Verified live webhook testing via Stripe CLI
+
+---
+
+📄 Technical note: Stripe environment variables stored securely via `.env` and deployed using Netlify environment settings for backend callbacks.
+
+---
+
+🚀 Day 2: Continue Development
+Todo:
+- User Roles
+  - Platform Owner
+    - SUPER ADMIN
+  - Platform Manager
+    - Can add products
+    - Can add campaigns
+    - Can add users
+    - Can add roles
+    - Can add permissions
+  - Campaign Manager
+    - Can add products
+    - Can add users
+    - Can add roles
+    - Can add permissions
+    - Can add campaigns
+  - Donor
+    - Can donate
+    - Can buy products
+  - Seller (without campaign)
+    - Can sell products
+    - Can add products
+- MainPage
+  - Change button "Start a Shop2Give" in header navigation to Shopping Chart icon.
+  - Add flavicon to the website.
+  - Change "How to Start a Shop2Give" to a better title.
+  - Change to a better logo
+- Product
+  - Product in Stripe can have a campaign ID.
+  - There should be multiple types of products.
+    - Product can be added from a campaign.
+    - Product added by the platform it self (PLATFORM_MANAGERuser role)
+- CampaignDetailPage
+  - Make sure button "Add to Donation" is on product work well.
+  - If product is added from a campaign, the campaign ID should be added to the product in shopping chart.
+- 
 ## 🙌 What I Learned
 
 - How to iterate prompts for AI-generated web apps

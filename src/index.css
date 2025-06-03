@@ -1,3 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand-pink: #FFF3F1;
+    --color-brand-teal: #4CBEB6;
+    --color-brand-teal-dark: #3A9E98;
+    --color-brand-charcoal: #1A2C34;
+  }
+
+  body {
+    @apply bg-brand-pink text-brand-charcoal font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-2xl px-6 py-3 font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-brand-teal text-white hover:bg-brand-teal-dark shadow-glow;
+  }
+
+  .nav-link {
+    @apply text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-soft transition-all duration-300 hover:shadow-lg;
+  }
+
+  .card-content {
+    @apply p-6;
+  }
+
+  .section-featured {
+    @apply bg-[#fcebea] py-24;
+  }
+
+  .section-products {
+    @apply bg-[#f0f8ff] py-24;
+  }
+}
+
+/* Custom animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

@@ -33,3 +33,139 @@ export function getRandomCategories(count: number): Category[] {
   const shuffled = [...categories].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
+
+export interface PriceOption {
+  id: string;
+  amount: number;
+  description?: string;
+}
+
+export interface DonationTarief {
+  amount: number;
+  description: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  imageUrl: string;
+  featured?: boolean;
+  stockQuantity: number;
+  priceId: string;
+  campaignId?: string;
+  priceOptions?: PriceOption[];
+  stripeProductId?: string;
+  mode?: 'payment' | 'subscription';
+}
+
+export interface PaymentMethod {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  avatarUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DonationCampaign {
+  id: string;
+  title: string;
+  description: string;
+  ownerId: string;
+  ownerName?: string;
+  ownerAvatarUrl?: string;
+  slug?: string; // URL name slug
+  goalAmount: number;
+  currentAmount: number;
+  status: 'active' | 'completed' | 'cancelled';
+  startDate: string;
+  endDate?: string;
+  imageUrl?: string;
+  galleryImages?: string[]; // Array of image URLs for the campaign gallery
+  createdAt: string;
+  updatedAt: string;
+  categoryId?: string;
+}
+
+export interface PaymentSuccessData {
+  items: {
+    productId: string;
+    campaignId?: string;
+    price: number;
+    quantity: number;
+    name: string;
+  }[];
+  userId?: string;
+  customerName?: string;
+  customerEmail?: string;
+  paymentMethod: string;
+  sessionId: string;
+}
+
+export interface DonationTrend {
+  date: string;
+  amount: number;
+  count: number;
+}
+
+export interface TopProduct {
+  name: string;
+  quantity: number;
+  revenue: number;
+}
+
+export interface DonorDemographics {
+  anonymous: number;
+  identified: number;
+}
+
+export interface CampaignAnalyticsData {
+  campaign: DonationCampaign;
+  totalDonations: number;
+  totalDonors: number;
+  averageDonation: number;
+  trends: DonationTrend[];
+  topProducts: TopProduct[];
+  donorDemographics: DonorDemographics;
+}
+
+export interface CampaignDonation {
+  id: string;
+  campaignId: string;
+  donorId?: string;
+  amount: number;
+  donorName?: string;
+  donorEmail?: string;
+  message?: string;
+  isAnonymous: boolean;
+  paymentMethod: string;
+  paymentStatus: 'pending' | 'completed' | 'failed';
+  createdAt: string;
+}
+
+export interface CampaignProduct {
+  campaignId: string;
+  productId: string;
+  profitPercentage: number;
+  createdAt: string;
+}
+
+export interface CampaignStatistics {
+  campaignId: string;
+  title: string;
+  goalAmount: number;
+  currentAmount: number;
+  totalDonations: number;
+  highestDonation: number;
+  averageDonation: number;
+}

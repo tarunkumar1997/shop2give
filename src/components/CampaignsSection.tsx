@@ -1,19 +1,22 @@
-import React from 'react';
+// Using JSX transform, no React import needed
+import { Link } from 'react-router-dom';
 import { CampaignCard } from './CampaignCard';
 import { campaigns } from '../data/campaigns';
 import { Button } from './ui/Button';
 
 export function CampaignsSection() {
   return (
-    <section className="py-16">
+    <section className="bg-[#FFF3F1] py-24">
       <div className="container mx-auto px-4">
         <div className="mb-12 flex flex-col items-center justify-between gap-4 md:flex-row">
-          <h2 className="text-center text-3xl font-bold text-blue-900 md:text-left">
-            <span className="mr-2">📌</span> Popular Campaigns – Making a Difference Now
+          <h2 className="text-center font-serif text-3xl font-bold text-[#1E2A32] md:text-left">
+            Popular Campaigns
           </h2>
-          <Button variant="outline">View All Campaigns</Button>
+          <Link to="/campaigns">
+            <Button variant="outline">View All Campaigns</Button>
+          </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {campaigns.slice(0, 6).map((campaign) => (
             <CampaignCard key={campaign.id} campaign={campaign} />
           ))}

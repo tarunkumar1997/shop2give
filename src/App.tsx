@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { AuthPage } from './pages/AuthPage';
 import { CampaignPage } from './pages/CampaignPage';
@@ -15,26 +15,186 @@ import { CreateCampaignPage } from './pages/CreateCampaignPage';
 import { SuccessPage } from './pages/SuccessPage';
 import { CancelPage } from './pages/CancelPage';
 
+// Error boundary component for catching route-level errors
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode, fallback?: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode, fallback?: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Route error caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || (
+        <div className="p-6 max-w-lg mx-auto my-10 bg-white rounded-md shadow-md">
+          <h2 className="text-2xl font-semibold text-red-600">Something went wrong</h2>
+          <p className="mt-4 text-gray-600">We apologize for the inconvenience. Please try refreshing the page.</p>
+          <button 
+            onClick={() => this.setState({ hasError: false })}
+            className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+          >
+            Try again
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Loading component for Suspense
+const PageLoader = () => (
+  <div className="flex items-center justify-center h-screen">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+  </div>
+);
+
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/campaigns" element={<CampaignsPage />} />
-        <Route path="/campaigns/:slug" element={<CampaignPage />} />
-        <Route path="/campaigns/create" element={<CreateCampaignPage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/category/:slug" element={<CategoryPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:id" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/success" element={<SuccessPage />} />
-        <Route path="/cancel" element={<CancelPage />} />
+        {/* Home Page */}
+        <Route path="/" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <HomePage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Auth Page */}
+        <Route path="/auth" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <AuthPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Campaign Routes - Support both singular and plural forms */}
+        <Route path="/campaigns" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CampaignsPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/campaign/:slug" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CampaignPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/campaigns/:slug" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CampaignPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/campaigns/create" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CreateCampaignPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Category Routes */}
+        <Route path="/categories" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CategoriesPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/category/:slug" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CategoryPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Product Routes */}
+        <Route path="/products" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <ProductsPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/product/:id" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <ProductPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/products/:id" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <ProductPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Cart Route */}
+        <Route path="/cart" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CartPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Search Route */}
+        <Route path="/search" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <SearchPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* About Route */}
+        <Route path="/about" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <AboutPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
+        {/* Payment Result Routes */}
+        <Route path="/success" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <SuccessPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/cancel" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CancelPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
