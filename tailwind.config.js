@@ -8,7 +8,7 @@ export default {
           pink: '#FFF3F1',
           teal: {
             DEFAULT: '#4CBEB6',
-            dark: '#3A9E98',
+            dark: '#338B86',
             light: '#87D7CC'
           },
           charcoal: '#1A2C34',
