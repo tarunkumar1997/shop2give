@@ -10,43 +10,43 @@ type StepProps = {
 
 function Step({ number, title, description, icon }: StepProps) {
   return (
-    <div className="flex flex-col items-center p-6 text-center md:items-start md:text-left">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-900">
+    <div className="flex flex-col items-center p-8 text-center md:items-start md:text-left">
+      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-pink text-brand-teal">
         {icon}
       </div>
-      <h3 className="mb-2 text-xl font-semibold text-blue-900">
+      <h3 className="mb-3 font-serif text-xl font-semibold text-brand-charcoal">
         Step {number} – {title}
       </h3>
-      <p className="text-blue-800/80">{description}</p>
+      <p className="text-brand-charcoal/80">{description}</p>
     </div>
   );
 }
 
 export function Instructions() {
   return (
-    <section className="py-16">
+    <section className="py-20">
       <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-center text-3xl font-bold text-blue-900">
+        <h2 className="mb-16 text-center font-serif text-3xl font-bold text-brand-charcoal">
           <span className="mr-2">📖</span> How to Start a Shop2Give
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <Step
             number={1}
             title="Create your fundraiser"
-            description="Click the 'Start a Shop2Give' button to get started. You'll be guided by prompts powered by AI to add fundraiser details and set your goal, which can be changed anytime."
-            icon={<CircleDollarSign className="h-6 w-6" />}
+            description="Click the 'Start a Shop2Give' button to begin. Our AI-powered system will guide you through setting up your fundraiser details and goals."
+            icon={<CircleDollarSign className="h-7 w-7" />}
           />
           <Step
             number={2}
             title="Share your fundraiser link"
-            description="Once live, share your fundraiser link with friends and family to start gaining momentum. You'll also find helpful resources for running your fundraiser in your Shop2Give dashboard."
-            icon={<Share2 className="h-6 w-6" />}
+            description="Share your unique fundraiser link with friends and family. Track progress and engage supporters through your Shop2Give dashboard."
+            icon={<Share2 className="h-7 w-7" />}
           />
           <Step
             number={3}
-            title="Securely receive funds"
-            description="Add your bank information or invite your fundraiser beneficiary to add theirs and start receiving funds directly and securely."
-            icon={<CheckCircle className="h-6 w-6" />}
+            title="Receive funds securely"
+            description="Add your bank details or invite your fundraiser beneficiary to receive donations directly and securely through our platform."
+            icon={<CheckCircle className="h-7 w-7" />}
           />
         </div>
       </div>
