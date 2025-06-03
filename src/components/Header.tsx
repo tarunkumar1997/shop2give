@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Search, Menu, X } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
 import { Button } from './ui/Button';
 import { useCartStore } from '../stores/cartStore';
+import { categories } from '../lib/types';
 
 export function Header() {
   const { items } = useCartStore();
   const itemCount = items.length;
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -28,6 +30,40 @@ export function Header() {
           <Link to="/campaigns" className="nav-link">
             Campaigns
           </Link>
+          
+          <div 
+            className="relative"
+            onMouseEnter={() => setCategoriesOpen(true)}
+            onMouseLeave={() => setCategoriesOpen(false)}
+          >
+            <button 
+              className="nav-link flex items-center gap-1"
+              onClick={() => setCategoriesOpen(!categoriesOpen)}
+            >
+              Categories
+              <ChevronDown className={`h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {categoriesOpen && (
+              <div className="absolute left-0 top-full mt-1 w-64 rounded-lg bg-white py-2 shadow-lg">
+                {categories.map((category) => {
+                  const Icon = category.icon;
+                  return (
+                    <Link
+                      key={category.id}
+                      to={`/category/${category.slug}`}
+                      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50"
+                      onClick={() => setCategoriesOpen(false)}
+                    >
+                      <Icon className="h-4 w-4" />
+                      {category.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          
           <Link to="/products" className="nav-link">
             Products
           </Link>
@@ -71,7 +107,6 @@ export function Header() {
         </div>
       </div>
       
-      {/* Mobile menu with semi-transparent background */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-10 bg-brand-teal/95 backdrop-blur-sm pt-20">
           <nav className="container mx-auto px-4 py-6 flex flex-col space-y-6">
@@ -82,6 +117,22 @@ export function Header() {
             >
               Campaigns
             </Link>
+            
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <Link
+                  key={category.id}
+                  to={`/category/${category.slug}`}
+                  className="flex items-center gap-2 text-lg font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Icon className="h-5 w-5" />
+                  {category.name}
+                </Link>
+              );
+            })}
+            
             <Link 
               to="/products" 
               className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
