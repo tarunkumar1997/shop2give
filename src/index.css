@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-brand-cream text-brand-charcoal;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .page-title {
+    @apply font-serif text-4xl font-bold text-brand-charcoal md:text-5xl;
+  }
+
+  .section-title {
+    @apply font-serif text-3xl font-bold text-brand-charcoal;
+  }
+
+  .card-title {
+    @apply font-serif text-xl font-semibold text-brand-charcoal;
+  }
+
+  .text-body {
+    @apply text-brand-charcoal/80;
+  }
+}
+
+/* Page-specific animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
