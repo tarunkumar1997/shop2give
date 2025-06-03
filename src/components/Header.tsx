@@ -25,13 +25,13 @@ export function Header() {
         </div>
         
         <nav className="hidden space-x-8 md:flex">
-          <Link to="/campaigns" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
+          <Link to="/campaigns" className="nav-link">
             Campaigns
           </Link>
-          <Link to="/products" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
+          <Link to="/products" className="nav-link">
             Products
           </Link>
-          <Link to="/about" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
+          <Link to="/about" className="nav-link">
             About Us
           </Link>
         </nav>
@@ -48,7 +48,7 @@ export function Header() {
           <Link to="/cart" className="relative">
             <ShoppingCart className="h-6 w-6 text-white hover:text-brand-pink transition-colors" />
             {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-pink text-xs text-brand-teal.DEFAULT font-medium">
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-pink text-xs text-brand-teal font-medium">
                 {itemCount}
               </span>
             )}
@@ -60,7 +60,7 @@ export function Header() {
           
           <button 
             onClick={toggleMobileMenu}
-            className="block bg-brand-teal md:hidden text-white hover:text-brand-pink transition-colors"
+            className="block md:hidden text-white hover:text-brand-pink transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? 
@@ -72,7 +72,7 @@ export function Header() {
       </div>
       
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-10 bg-brand-teal.DEFAULT pt-20">
+        <div className="fixed inset-0 z-10 bg-brand-teal/95 pt-20">
           <nav className="container mx-auto px-4 py-6 flex flex-col space-y-6">
             <Link 
               to="/campaigns" 
