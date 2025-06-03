@@ -1,4 +1,5 @@
-import React from 'react';
+// Using JSX transform, no React import needed
+import { Link } from 'react-router-dom';
 import { CampaignCard } from './CampaignCard';
 import { campaigns } from '../data/campaigns';
 import { Button } from './ui/Button';
@@ -11,7 +12,9 @@ export function CampaignsSection() {
           <h2 className="text-center font-serif text-3xl font-bold text-[#1E2A32] md:text-left">
             Popular Campaigns
           </h2>
-          <Button variant="outline">View All Campaigns</Button>
+          <Link to="/campaigns">
+            <Button variant="outline">View All Campaigns</Button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {campaigns.slice(0, 6).map((campaign) => (

@@ -1,4 +1,5 @@
-import React from 'react';
+// Using JSX transform, no React import needed
+import { Link } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
 import { products } from '../data/products';
 import { Button } from './ui/Button';
@@ -11,7 +12,9 @@ export function ProductsSection() {
           <h2 className="text-center font-serif text-3xl font-bold text-[#1E2A32] md:text-left">
             Featured Products
           </h2>
-          <Button variant="outline">View All Products</Button>
+          <Link to="/products">
+            <Button variant="outline">View All Products</Button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {products.map((product) => (
