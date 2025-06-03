@@ -15,9 +15,9 @@ export function ProgressBar({
   const progress = Math.min(100, Math.max(0, value));
   
   return (
-    <div className={cn('h-2 w-full overflow-hidden rounded-full bg-gray-200', className)}>
+    <div className={cn('h-2 w-full overflow-hidden rounded-full bg-brand-pink', className)}>
       <div
-        className={cn('h-full bg-blue-600 transition-all duration-300 ease-in-out', barClassName)}
+        className={cn('h-full bg-brand-teal transition-all duration-300 ease-in-out', barClassName)}
         style={{ width: `${progress}%` }}
       />
     </div>
