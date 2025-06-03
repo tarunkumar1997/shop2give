@@ -82,7 +82,7 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Campaign Routes - Support both singular and plural forms */}
+        {/* Campaign Routes */}
         <Route path="/campaigns" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -97,14 +97,7 @@ function App() {
             </Suspense>
           </ErrorBoundary>
         } />
-        <Route path="/campaigns/:slug" element={
-          <ErrorBoundary>
-            <Suspense fallback={<PageLoader />}>
-              <CampaignPage />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        <Route path="/campaigns/create" element={
+        <Route path="/create-campaign" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
               <CreateCampaignPage />
@@ -137,13 +130,6 @@ function App() {
           </ErrorBoundary>
         } />
         <Route path="/product/:id" element={
-          <ErrorBoundary>
-            <Suspense fallback={<PageLoader />}>
-              <ProductPage />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        <Route path="/products/:id" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
               <ProductPage />
