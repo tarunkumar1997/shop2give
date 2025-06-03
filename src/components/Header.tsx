@@ -71,8 +71,9 @@ export function Header() {
         </div>
       </div>
       
+      {/* Mobile menu with semi-transparent background */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-10 bg-brand-teal/95 pt-20">
+        <div className="fixed inset-0 z-10 bg-brand-teal/95 backdrop-blur-sm pt-20">
           <nav className="container mx-auto px-4 py-6 flex flex-col space-y-6">
             <Link 
               to="/campaigns" 
