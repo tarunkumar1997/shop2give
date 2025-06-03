@@ -60,7 +60,7 @@ export function Header() {
           
           <button 
             onClick={toggleMobileMenu}
-            className="block md:hidden text-white hover:text-brand-pink transition-colors"
+            className="block bg-brand-teal md:hidden text-white hover:text-brand-pink transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? 
