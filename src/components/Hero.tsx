@@ -15,7 +15,7 @@ export function Hero() {
       </div>
       
       <div className="container relative mx-auto px-4 text-center py-24">
-        <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-brand-charcoal mb-8 animate-fade-in">
+        <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-brand-teal mb-8 animate-fade-in">
           Support causes by<br />shopping online
         </h1>
         <p className="mx-auto max-w-2xl text-lg md:text-xl text-brand-charcoal/80 mb-10">

@@ -24,10 +24,10 @@ function Step({ number, title, description, icon }: StepProps) {
 
 export function Instructions() {
   return (
-    <section id="instructions" className="py-24 bg-gradient-to-b from-white/80 to-transparent">
+    <section id="instructions" className="py-24 bg-[#FFF8E7]">
       <div className="container mx-auto px-4">
         <h2 className="mb-16 text-center font-serif text-3xl font-bold text-brand-charcoal">
-          <span className="mr-2">📖</span> How to Start a Shop2Give
+          Start meaningful giving — fast, simple, and impactful.
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <Step
