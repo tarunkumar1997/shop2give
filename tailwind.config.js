@@ -6,7 +6,11 @@ export default {
       colors: {
         brand: {
           pink: '#FFF3F1',
-          teal: '#C1E8E0',
+          teal: {
+            light: '#D3F2EE',
+            DEFAULT: '#009688',
+            dark: '#007B6F'
+          },
           sage: '#AACDBE',
           charcoal: '#333333',
           cream: '#FFFFFF'
@@ -20,7 +24,8 @@ export default {
         '2xl': '1.25rem'
       },
       boxShadow: {
-        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)'
+        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+        'glow': '0 2px 6px rgba(0, 150, 136, 0.3)'
       }
     }
   },

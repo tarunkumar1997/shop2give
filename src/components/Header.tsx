@@ -16,22 +16,22 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 bg-brand-cream/80 backdrop-blur-md">
+    <header className="sticky top-0 z-20 bg-brand-teal.DEFAULT shadow-sm">
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <div className="flex items-center">
           <Link to="/">
-            <Logo />
+            <Logo className="text-white" />
           </Link>
         </div>
         
         <nav className="hidden space-x-8 md:flex">
-          <Link to="/campaigns" className="text-base font-medium text-brand-charcoal hover:text-brand-sage transition-colors">
+          <Link to="/campaigns" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
             Campaigns
           </Link>
-          <Link to="/products" className="text-base font-medium text-brand-charcoal hover:text-brand-sage transition-colors">
+          <Link to="/products" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
             Products
           </Link>
-          <Link to="/about" className="text-base font-medium text-brand-charcoal hover:text-brand-sage transition-colors">
+          <Link to="/about" className="text-base font-medium text-white hover:text-brand-pink transition-colors border-b-2 border-transparent hover:border-brand-pink">
             About Us
           </Link>
         </nav>
@@ -39,16 +39,16 @@ export function Header() {
         <div className="flex items-center space-x-6">
           <button
             onClick={() => navigate('/search')}
-            className="text-brand-charcoal hover:text-brand-sage transition-colors"
+            className="text-white hover:text-brand-pink transition-colors"
             aria-label="Search"
           >
             <Search className="h-6 w-6" />
           </button>
           
           <Link to="/cart" className="relative">
-            <ShoppingCart className="h-6 w-6 text-brand-charcoal hover:text-brand-sage transition-colors" />
+            <ShoppingCart className="h-6 w-6 text-white hover:text-brand-pink transition-colors" />
             {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-teal text-xs text-white">
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-pink text-xs text-brand-teal.DEFAULT font-medium">
                 {itemCount}
               </span>
             )}
@@ -60,7 +60,7 @@ export function Header() {
           
           <button 
             onClick={toggleMobileMenu}
-            className="block md:hidden text-brand-charcoal hover:text-brand-sage transition-colors"
+            className="block md:hidden text-white hover:text-brand-pink transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? 
@@ -72,32 +72,32 @@ export function Header() {
       </div>
       
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-10 bg-brand-cream/95 pt-20">
+        <div className="fixed inset-0 z-10 bg-brand-teal.DEFAULT pt-20">
           <nav className="container mx-auto px-4 py-6 flex flex-col space-y-6">
             <Link 
               to="/campaigns" 
-              className="text-xl font-medium text-brand-charcoal hover:text-brand-sage p-2 border-b border-brand-pink"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Campaigns
             </Link>
             <Link 
               to="/products" 
-              className="text-xl font-medium text-brand-charcoal hover:text-brand-sage p-2 border-b border-brand-pink"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Products
             </Link>
             <Link 
               to="/about" 
-              className="text-xl font-medium text-brand-charcoal hover:text-brand-sage p-2 border-b border-brand-pink"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Us
             </Link>
             <Link 
               to="/auth" 
-              className="text-xl font-medium text-brand-charcoal hover:text-brand-sage p-2 border-b border-brand-pink"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Sign In
