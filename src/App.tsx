@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { HomePage } from './pages/HomePage';
 import { AuthPage } from './pages/AuthPage';
 import { CampaignPage } from './pages/CampaignPage';
@@ -12,6 +13,7 @@ import { CartPage } from './pages/CartPage';
 import { SearchPage } from './pages/SearchPage';
 import { AboutPage } from './pages/AboutPage';
 import { CreateCampaignPage } from './pages/CreateCampaignPage';
+import { CampaignAIPage } from './pages/CampaignAIPage';
 import { SuccessPage } from './pages/SuccessPage';
 import { CancelPage } from './pages/CancelPage';
 
@@ -63,8 +65,8 @@ const PageLoader = () => (
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" />
       <Routes>
-        {/* Home Page */}
         <Route path="/" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -73,7 +75,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Auth Page */}
         <Route path="/auth" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -82,7 +83,14 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Campaign Routes - Support both singular and plural forms */}
+        <Route path="/campaign-ai" element={
+          <ErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <CampaignAIPage />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        
         <Route path="/campaigns" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -97,14 +105,7 @@ function App() {
             </Suspense>
           </ErrorBoundary>
         } />
-        <Route path="/campaigns/:slug" element={
-          <ErrorBoundary>
-            <Suspense fallback={<PageLoader />}>
-              <CampaignPage />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        <Route path="/campaigns/create" element={
+        <Route path="/create-campaign" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
               <CreateCampaignPage />
@@ -112,7 +113,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Category Routes */}
         <Route path="/categories" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -128,7 +128,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Product Routes */}
         <Route path="/products" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -143,15 +142,7 @@ function App() {
             </Suspense>
           </ErrorBoundary>
         } />
-        <Route path="/products/:id" element={
-          <ErrorBoundary>
-            <Suspense fallback={<PageLoader />}>
-              <ProductPage />
-            </Suspense>
-          </ErrorBoundary>
-        } />
         
-        {/* Cart Route */}
         <Route path="/cart" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -160,7 +151,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Search Route */}
         <Route path="/search" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -169,7 +159,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* About Route */}
         <Route path="/about" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
@@ -178,7 +167,6 @@ function App() {
           </ErrorBoundary>
         } />
         
-        {/* Payment Result Routes */}
         <Route path="/success" element={
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>

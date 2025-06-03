@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { ChevronDown } from 'lucide-react';
 
@@ -21,12 +22,14 @@ export function Hero() {
         <p className="mx-auto max-w-2xl text-lg md:text-xl text-brand-charcoal/80 mb-10">
           Purchase goods where proceeds go directly to fundraising campaigns that you care about.
         </p>
-        <Button 
-          size="lg" 
-          className="animate-pulse hover:animate-none hover:scale-105 transition-transform"
-        >
-          Start a Shop2Give
-        </Button>
+        <Link to="/create-campaign">
+          <Button 
+            size="lg" 
+            className="animate-pulse hover:animate-none hover:scale-105 transition-transform"
+          >
+            Start a Shop2Give
+          </Button>
+        </Link>
 
         <button 
           onClick={scrollToInstructions}
