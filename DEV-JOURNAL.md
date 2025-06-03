@@ -132,7 +132,7 @@ Linked each prompt file in this journal for traceability.
 
 ---
 
-🚀 Day 2: Continue Development
+## 🚀 Day 2: Continue Development
 Todo:
 - User Roles
   - Platform Owner
@@ -168,7 +168,53 @@ Todo:
 - CampaignDetailPage
   - Make sure button "Add to Donation" is on product work well.
   - If product is added from a campaign, the campaign ID should be added to the product in shopping chart.
-- 
+  
+---
+
+## 🔍 Day 4: Domain Expertise and Categories Feature
+
+### 📺 Watched Domain Expertise Resources
+- **Domain Expertise with Entri**
+  🔗 [Watch on YouTube](https://www.youtube.com/live/YPeasrDA6uY?si=wm5dEypyhMkURb6N)
+
+### 📺 Attended Virtual Office Hours
+- **Live Product Launch Training Workshop with Rae Lambert**
+  🔗 [Watch on YouTube](https://www.youtube.com/live/bt5TFNDifWM?si=X7pfzSB3vjC_dRmt)
+
+### 🧩 Implemented Categories Feature
+- Created a new feature branch: `feature/categories`
+- Added category support throughout the application
+- Implemented category filtering and navigation
+- See branch in git for all changes
+
+---
+
+## 🎨 Day 5: Branding and Campaign Creation
+
+### 🔄 Branding Updates
+- Created a new feature branch: `feature/branding`
+- Implemented comprehensive branding changes
+- Added custom color palette with teal and soft pink accents
+- Improved typography with serif/sans-serif pairing
+- Enhanced UI components for a more professional look
+- 📄 [See branding prompt](./.bolt/prompts/03_BRANDING.md)
+
+### 🤖 AI-powered Campaign Creation
+- Added a "Start a Shop2Give" campaign creation flow
+- Built an AI chat interface to guide users through campaign setup
+- Created multi-step form with campaign details collection
+- Implemented category suggestions based on campaign description
+- Added example campaigns for reference
+- 📄 [See campaign creation prompt](./.bolt/prompts/04_CREATE_CAMPAIGN.md)
+
+### 🔧 Authentication and Campaign Creation Fixes
+- Fixed authentication flow issues in campaign creation
+- Implemented simplified authentication for demo purposes
+- Fixed infinite loading issues in the auth redirect flow
+- Created local response handling for the AI chat agent
+- Ensured proper error boundaries and loading states
+- 📄 [See auth fixes prompt](./.bolt/prompts/05_FIX_AUTH_CREATE_CAMPAIGN.md)
+
 ## 🙌 What I Learned
 
 - How to iterate prompts for AI-generated web apps
