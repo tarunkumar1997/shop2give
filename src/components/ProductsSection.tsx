@@ -8,7 +8,7 @@ export function ProductsSection() {
     <section className="bg-[#FFF8E7] py-24">
       <div className="container mx-auto px-4">
         <div className="mb-12 flex flex-col items-center justify-between gap-4 md:flex-row">
-          <h2 className="text-center text-3xl font-bold text-brand-charcoal md:text-left">
+          <h2 className="text-center font-serif text-3xl font-bold text-[#1E2A32] md:text-left">
             Featured Products
           </h2>
           <Button variant="outline">View All Products</Button>
