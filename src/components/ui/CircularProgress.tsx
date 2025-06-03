@@ -33,7 +33,7 @@ export function CircularProgress({
         xmlns="http://www.w3.org/2000/svg"
       >
         <circle
-          className={cn('text-gray-200', trackClassName)}
+          className={cn('text-brand-pink', trackClassName)}
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -41,7 +41,7 @@ export function CircularProgress({
           stroke="currentColor"
         />
         <circle
-          className={cn('text-blue-600 transition-all duration-300 ease-in-out', progressClassName)}
+          className={cn('text-brand-teal transition-all duration-300 ease-in-out', progressClassName)}
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -53,7 +53,7 @@ export function CircularProgress({
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center text-xs font-medium">
+      <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-brand-charcoal">
         {Math.round(progress)}%
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Search, Menu, X } from 'lucide-react';
-import { Logo } from './Logo.js';
-import { Button } from './ui/Button.js';
-import { useCartStore } from '../stores/cartStore.js';
+import { Logo } from './Logo';
+import { Button } from './ui/Button';
+import { useCartStore } from '../stores/cartStore';
 
 export function Header() {
   const { items } = useCartStore();
@@ -16,59 +16,51 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-20 bg-brand-teal shadow-sm">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <div className="flex items-center">
           <Link to="/">
-            <Logo />
+            <Logo className="text-white" />
           </Link>
         </div>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden space-x-6 md:flex">
-          <Link to="/campaigns" className="text-sm font-medium text-blue-900 hover:text-blue-700">
+        <nav className="hidden space-x-8 md:flex">
+          <Link to="/campaigns" className="nav-link">
             Campaigns
           </Link>
-          <Link to="/categories" className="text-sm font-medium text-blue-900 hover:text-blue-700">
-            Categories
-          </Link>
-          <Link to="/products" className="text-sm font-medium text-blue-900 hover:text-blue-700">
+          <Link to="/products" className="nav-link">
             Products
           </Link>
-          <Link to="/about" className="text-sm font-medium text-blue-900 hover:text-blue-700">
+          <Link to="/about" className="nav-link">
             About Us
           </Link>
         </nav>
 
-        <div className="flex items-center space-x-4">
-          {/* Search Icon */}
+        <div className="flex items-center space-x-6">
           <button
             onClick={() => navigate('/search')}
-            className="text-blue-900 hover:text-blue-700"
+            className="text-white hover:text-brand-pink transition-colors"
             aria-label="Search"
           >
             <Search className="h-6 w-6" />
           </button>
           
-          {/* Cart Icon */}
           <Link to="/cart" className="relative">
-            <ShoppingCart className="h-6 w-6 text-blue-900" />
+            <ShoppingCart className="h-6 w-6 text-white hover:text-brand-pink transition-colors" />
             {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-pink text-xs text-brand-teal font-medium">
                 {itemCount}
               </span>
             )}
           </Link>
           
-          {/* Sign In Button - Hidden on Mobile */}
           <Link to="/auth" className="hidden md:block">
-            <Button variant="outline" size="sm">Sign In</Button>
+            <Button variant="secondary" size="sm">Sign In</Button>
           </Link>
           
-          {/* Hamburger Menu - Only visible on mobile */}
           <button 
             onClick={toggleMobileMenu}
-            className="block md:hidden text-blue-900 hover:text-blue-700"
+            className="block md:hidden text-white hover:text-brand-pink transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? 
@@ -79,41 +71,34 @@ export function Header() {
         </div>
       </div>
       
-      {/* Mobile Navigation Menu */}
+      {/* Mobile menu with semi-transparent background */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-10 bg-white/95 pt-16">
-          <nav className="container mx-auto px-4 py-6 flex flex-col space-y-4">
+        <div className="fixed inset-0 z-10 bg-brand-teal/95 backdrop-blur-sm pt-20">
+          <nav className="container mx-auto px-4 py-6 flex flex-col space-y-6">
             <Link 
               to="/campaigns" 
-              className="text-lg font-medium text-blue-900 hover:text-blue-700 p-2 border-b border-gray-100"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Campaigns
             </Link>
             <Link 
-              to="/categories" 
-              className="text-lg font-medium text-blue-900 hover:text-blue-700 p-2 border-b border-gray-100"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Categories
-            </Link>
-            <Link 
               to="/products" 
-              className="text-lg font-medium text-blue-900 hover:text-blue-700 p-2 border-b border-gray-100"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Products
             </Link>
             <Link 
               to="/about" 
-              className="text-lg font-medium text-blue-900 hover:text-blue-700 p-2 border-b border-gray-100"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Us
             </Link>
             <Link 
               to="/auth" 
-              className="text-lg font-medium text-blue-900 hover:text-blue-700 p-2 border-b border-gray-100"
+              className="text-xl font-medium text-white hover:text-brand-pink p-2 border-b border-white/20"
               onClick={() => setMobileMenuOpen(false)}
             >
               Sign In
