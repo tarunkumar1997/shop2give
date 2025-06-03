@@ -18,14 +18,14 @@ export function SearchInput({
 }: SearchInputProps) {
   return (
     <div className={`relative ${className}`}>
-      <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+      <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-charcoal/50" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        className="h-12 w-full rounded-lg bg-gray-50 pl-10 pr-4 text-gray-900 placeholder-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="h-14 w-full rounded-2xl bg-brand-pink/30 pl-12 pr-4 text-brand-charcoal placeholder-brand-charcoal/50 shadow-soft transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-teal"
       />
     </div>
   );
