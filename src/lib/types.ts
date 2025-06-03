@@ -4,7 +4,7 @@ export type Category = {
   id: string;
   name: string;
   slug: string;
-  icon: string;
+  icon: LucideIcon;
 };
 
 export const categories: Category[] = [
