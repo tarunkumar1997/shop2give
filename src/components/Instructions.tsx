@@ -10,7 +10,7 @@ type StepProps = {
 
 function Step({ number, title, description, icon }: StepProps) {
   return (
-    <div className="flex flex-col items-center p-8 text-center md:items-start md:text-left">
+    <div className="flex flex-col items-center p-8 text-center md:items-start md:text-left bg-white rounded-2xl shadow-soft hover:shadow-lg transition-all duration-300">
       <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-pink text-brand-teal">
         {icon}
       </div>
@@ -24,7 +24,7 @@ function Step({ number, title, description, icon }: StepProps) {
 
 export function Instructions() {
   return (
-    <section className="py-20">
+    <section id="instructions" className="py-24 bg-gradient-to-b from-white/80 to-transparent">
       <div className="container mx-auto px-4">
         <h2 className="mb-16 text-center font-serif text-3xl font-bold text-brand-charcoal">
           <span className="mr-2">📖</span> How to Start a Shop2Give
