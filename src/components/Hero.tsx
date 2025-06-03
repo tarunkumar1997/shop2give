@@ -3,18 +3,16 @@ import { Button } from './ui/Button';
 
 export function Hero() {
   return (
-    <section className="bg-[#FFF3F1] py-20">
+    <section className="bg-brand-pink py-24">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="mb-6 text-4xl font-bold text-blue-900 md:text-5xl lg:text-6xl">
-          Buy with purpose. <br /> Give with heart.
+        <h1 className="mb-8 font-serif text-5xl font-bold text-brand-charcoal md:text-6xl lg:text-7xl">
+          Support causes by<br />shopping online
         </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-lg text-blue-800/80">
-          Shop2Give connects everyday purchases with life-changing causes, 
-          empowering communities to support each other through transparent giving 
-          and purposeful products.
+        <p className="mx-auto mb-10 max-w-2xl text-lg text-brand-charcoal/80 md:text-xl">
+          Purchase goods where proceeds go directly to fundraising campaigns that you care about.
         </p>
-        <Button size="lg" className="animate-pulse">
-          Start a Shop2Give
+        <Button size="lg" className="animate-pulse shadow-soft">
+          Start Shopping
         </Button>
       </div>
     </section>
