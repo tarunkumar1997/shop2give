@@ -19,7 +19,7 @@ export function CreateCampaignPage() {
   // Redirect to auth page if not logged in
   React.useEffect(() => {
     if (!user) {
-      navigate('/auth?redirect=/create-campaign');
+      navigate('/auth');
     }
   }, [user, navigate]);
 

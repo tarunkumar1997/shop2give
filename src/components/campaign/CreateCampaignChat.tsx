@@ -20,6 +20,22 @@ const questions = [
   "Which category fits best: Medical, Education, Mission & Faith, Community, or Emergency Relief?"
 ];
 
+const getAIResponse = (userMessage: string, questionIndex: number): string => {
+  const lowerMessage = userMessage.toLowerCase();
+  
+  if (questionIndex === 0) {
+    if (lowerMessage.includes('medical')) {
+      return "That's wonderful! Medical campaigns often resonate strongly with supporters. What specific medical need are you raising funds for?";
+    } else if (lowerMessage.includes('education')) {
+      return "Education is such a powerful investment! Tell me more about the educational opportunity you're supporting.";
+    } else if (lowerMessage.includes('mission') || lowerMessage.includes('faith')) {
+      return "What a beautiful calling! Mission work touches hearts. Can you share more about this mission opportunity?";
+    }
+  }
+  
+  return questions[questionIndex + 1] || "Thank you for sharing! I'll help you create your campaign now.";
+};
+
 export function CreateCampaignChat({ onUpdateForm }: CreateCampaignChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentInput, setCurrentInput] = useState('');
@@ -66,10 +82,13 @@ export function CreateCampaignChat({ onUpdateForm }: CreateCampaignChatProps) {
     }
     onUpdateForm(formUpdate);
 
+    // Get AI response
+    const aiResponse = getAIResponse(currentInput, currentQuestion);
+    
     // Move to next question
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
-      await addAIMessage(questions[currentQuestion + 1]);
+      await addAIMessage(aiResponse);
     }
   };
 

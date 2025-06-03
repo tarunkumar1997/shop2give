@@ -22,7 +22,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   user: null,
   roles: [],
   profile: null,
-  isLoading: true,
+  isLoading: false,
 
   initialize: async () => {
     try {
@@ -56,61 +56,84 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   signIn: async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    set({ isLoading: true });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) throw error;
-
-    await get().initialize();
+      if (error) throw error;
+      await get().initialize();
+    } catch (error) {
+      console.error('Sign in error:', error);
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
   signUp: async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    set({ isLoading: true });
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
 
-    if (error) throw error;
-
-    await get().initialize();
+      if (error) throw error;
+      await get().initialize();
+    } catch (error) {
+      console.error('Sign up error:', error);
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
   signOut: async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    set({ user: null, roles: [], profile: null });
+    set({ isLoading: true });
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      set({ user: null, roles: [], profile: null });
+    } catch (error) {
+      console.error('Sign out error:', error);
+      throw error;
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
   updateProfile: async (data) => {
     const user = get().user;
     if (!user) throw new Error('No user logged in');
 
-    const { error } = await supabase
-      .from('profiles')
-      .update(data)
-      .eq('id', user.id);
+    set({ isLoading: true });
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update(data)
+        .eq('id', user.id);
 
-    if (error) throw error;
+      if (error) throw error;
 
-    // Ensure profile properties are properly typed
-    const currentProfile = get().profile;
-    set({ 
-      profile: { 
-        full_name: data && 'full_name' in data && data.full_name !== undefined ? data.full_name : (currentProfile ? currentProfile.full_name : null),
-        avatar_url: data && 'avatar_url' in data && data.avatar_url !== undefined ? data.avatar_url : (currentProfile ? currentProfile.avatar_url : null),
-        bio: data && 'bio' in data && data.bio !== undefined ? data.bio : (currentProfile ? currentProfile.bio : null)
-      } 
-    });
+      const currentProfile = get().profile;
+      set({ 
+        profile: { 
+          full_name: data.full_name ?? currentProfile?.full_name ?? null,
+          avatar_url: data.avatar_url ?? currentProfile?.avatar_url ?? null,
+          bio: data.bio ?? currentProfile?.bio ?? null
+        },
+        isLoading: false
+      });
+    } catch (error) {
+      console.error('Update profile error:', error);
+      set({ isLoading: false });
+      throw error;
+    }
   },
 }));
 
-// Auth context initialization
-supabase.auth.onAuthStateChange((event) => {
-  if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-    useAuth.getState().initialize();
-  } else if (event === 'SIGNED_OUT') {
-    useAuth.setState({ user: null, roles: [], profile: null });
-  }
-});
+// Initialize auth state when the app loads
+useAuth.getState().initialize();
