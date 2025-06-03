@@ -11,7 +11,8 @@ export default {
             dark: '#3A9E98',
             light: '#87D7CC'
           },
-          charcoal: '#1A2C34'
+          charcoal: '#1A2C34',
+          cream: '#FFFAF9'
         }
       },
       fontFamily: {

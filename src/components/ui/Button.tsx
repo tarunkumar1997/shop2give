@@ -15,12 +15,12 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 shadow-glow';
+  const baseStyles = 'inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50';
   
   const variantStyles = {
-    primary: 'bg-brand-teal.DEFAULT text-brand-pink hover:bg-brand-teal.dark focus-visible:ring-brand-teal.DEFAULT',
-    secondary: 'bg-brand-pink text-brand-teal.DEFAULT hover:bg-opacity-90 focus-visible:ring-brand-pink',
-    outline: 'border-2 border-brand-teal.DEFAULT bg-transparent text-brand-teal.DEFAULT hover:bg-brand-pink/10 focus-visible:ring-brand-teal.DEFAULT',
+    primary: 'bg-brand-teal text-white hover:bg-brand-teal-dark focus-visible:ring-brand-teal shadow-glow',
+    secondary: 'bg-white text-brand-teal hover:bg-brand-pink/10 focus-visible:ring-brand-pink shadow-soft',
+    outline: 'border-2 border-brand-teal bg-transparent text-brand-teal hover:bg-brand-pink/10 focus-visible:ring-brand-teal',
   };
   
   const sizeStyles = {

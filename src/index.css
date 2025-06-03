@@ -41,7 +41,7 @@
   }
 
   .card-content {
-    @apply p-6 bg-brand-pink bg-opacity-30;
+    @apply p-6;
   }
 
   .section-featured {
