@@ -22,7 +22,6 @@ export function detectCategory(text: string): CategorySuggestion | null {
   if (!text) return null;
 
   const words = text.toLowerCase().split(/\s+/);
-  
   let maxMatches = 0;
   let suggestedCategory: Category | null = null;
   let matchedKeywords: string[] = [];
