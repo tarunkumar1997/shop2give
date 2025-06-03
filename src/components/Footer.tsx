@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logo } from './Logo';
-import { Facebook, Twitter, Instagram, Mail } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Zap } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -70,11 +70,8 @@ export function Footer() {
             className="flex items-center gap-2 text-sm text-brand-cream/70 hover:text-white transition-colors"
           >
             Built with
-            <img 
-              src="https://bolt.new/badge-white.png" 
-              alt="Built with Bolt.new" 
-              className="h-6"
-            />
+            <Zap className="h-5 w-5" />
+            Bolt.new
           </a>
         </div>
       </div>
