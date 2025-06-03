@@ -15,7 +15,7 @@ export function Hero() {
         <p className="mx-auto max-w-2xl text-lg md:text-xl text-brand-charcoal/80 mb-10">
           Purchase goods where proceeds go directly to fundraising campaigns that you care about.
         </p>
-        <Button size="lg" className="shadow-glow">
+        <Button size="lg" className="shadow-glow bg-brand-teal">
           Start Sho2Give
         </Button>
       </div>
