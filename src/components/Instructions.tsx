@@ -24,41 +24,32 @@ function Step({ number, title, description, icon }: StepProps) {
 
 export function Instructions() {
   return (
-    <section id="instructions" className="relative py-24">
-      {/* Gradient overlay for top transition */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#FFF3F1] to-[#FFF8E7]" />
-      
-      {/* Main content with background */}
-      <div className="relative bg-[#FFF8E7]">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-[#1E2A32]">
-            Start meaningful giving — fast, simple, and impactful.
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <Step
-              number={1}
-              title="Create your fundraiser"
-              description="Click the 'Start a Shop2Give' button to begin. Our AI-powered system will guide you through setting up your fundraiser details and goals."
-              icon={<CircleDollarSign className="h-7 w-7" />}
-            />
-            <Step
-              number={2}
-              title="Share your fundraiser link"
-              description="Share your unique fundraiser link with friends and family. Track progress and engage supporters through your Shop2Give dashboard."
-              icon={<Share2 className="h-7 w-7" />}
-            />
-            <Step
-              number={3}
-              title="Receive funds securely"
-              description="Add your bank details or invite your fundraiser beneficiary to receive donations directly and securely through our platform."
-              icon={<CheckCircle className="h-7 w-7" />}
-            />
-          </div>
+    <section id="instructions" className="bg-[#FFF8E7] py-24">
+      <div className="container mx-auto px-4">
+        <h2 className="mb-16 text-center font-serif text-3xl font-bold text-[#1E2A32]">
+          Start meaningful giving — fast, simple, and impactful.
+        </h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <Step
+            number={1}
+            title="Create your fundraiser"
+            description="Click the 'Start a Shop2Give' button to begin. Our AI-powered system will guide you through setting up your fundraiser details and goals."
+            icon={<CircleDollarSign className="h-7 w-7" />}
+          />
+          <Step
+            number={2}
+            title="Share your fundraiser link"
+            description="Share your unique fundraiser link with friends and family. Track progress and engage supporters through your Shop2Give dashboard."
+            icon={<Share2 className="h-7 w-7" />}
+          />
+          <Step
+            number={3}
+            title="Receive funds securely"
+            description="Add your bank details or invite your fundraiser beneficiary to receive donations directly and securely through our platform."
+            icon={<CheckCircle className="h-7 w-7" />}
+          />
         </div>
       </div>
-      
-      {/* Gradient overlay for bottom transition */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FFF3F1] to-[#FFF8E7]" />
     </section>
   );
 }
