@@ -11,15 +11,49 @@ const stripe = new Stripe(stripeSecret, {
   },
 });
 
-// Helper function to create responses with CORS headers
+// Add rate limiting
+const RATE_LIMIT = 100; // requests per minute
+const rateLimitStore = new Map<string, number[]>();
+
+function isRateLimited(userId: string): boolean {
+  const now = Date.now();
+  const minute = 60 * 1000;
+  const userRequests = rateLimitStore.get(userId) || [];
+  
+  // Clean up old requests
+  const recentRequests = userRequests.filter(timestamp => now - timestamp < minute);
+  rateLimitStore.set(userId, recentRequests);
+  
+  if (recentRequests.length >= RATE_LIMIT) {
+    return true;
+  }
+  
+  recentRequests.push(now);
+  return false;
+}
+
+// Add logging
+async function logCheckoutAttempt(userId: string, success: boolean, error?: string) {
+  try {
+    await supabase.from('checkout_logs').insert({
+      user_id: userId,
+      success,
+      error_message: error,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (logError) {
+    console.error('Failed to log checkout attempt:', logError);
+  }
+}
+
 function corsResponse(body: string | object | null, status = 200) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+    'Access-Control-Max-Age': '86400',
   };
 
-  // For 204 No Content, don't include Content-Type or body
   if (status === 204) {
     return new Response(null, { status, headers });
   }
@@ -43,6 +77,25 @@ Deno.serve(async (req) => {
       return corsResponse({ error: 'Method not allowed' }, 405);
     }
 
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return corsResponse({ error: 'Unauthorized' }, 401);
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: { user }, error: getUserError } = await supabase.auth.getUser(token);
+
+    if (getUserError || !user) {
+      return corsResponse({ error: 'Invalid authentication token' }, 401);
+    }
+
+    // Check rate limit
+    if (isRateLimited(user.id)) {
+      await logCheckoutAttempt(user.id, false, 'Rate limit exceeded');
+      return corsResponse({ error: 'Too many requests' }, 429);
+    }
+
     const { price_id, success_url, cancel_url, mode } = await req.json();
 
     const error = validateParameters(
@@ -56,24 +109,11 @@ Deno.serve(async (req) => {
     );
 
     if (error) {
+      await logCheckoutAttempt(user.id, false, error);
       return corsResponse({ error }, 400);
     }
 
-    const authHeader = req.headers.get('Authorization')!;
-    const token = authHeader.replace('Bearer ', '');
-    const {
-      data: { user },
-      error: getUserError,
-    } = await supabase.auth.getUser(token);
-
-    if (getUserError) {
-      return corsResponse({ error: 'Failed to authenticate user' }, 401);
-    }
-
-    if (!user) {
-      return corsResponse({ error: 'User not found' }, 404);
-    }
-
+    // Get or create Stripe customer
     const { data: customer, error: getCustomerError } = await supabase
       .from('stripe_customers')
       .select('customer_id')
@@ -82,16 +122,12 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (getCustomerError) {
-      console.error('Failed to fetch customer information from the database', getCustomerError);
-
+      await logCheckoutAttempt(user.id, false, 'Failed to fetch customer information');
       return corsResponse({ error: 'Failed to fetch customer information' }, 500);
     }
 
     let customerId;
 
-    /**
-     * In case we don't have a mapping yet, the customer does not exist and we need to create one.
-     */
     if (!customer || !customer.customer_id) {
       const newCustomer = await stripe.customers.create({
         email: user.email,
@@ -100,24 +136,18 @@ Deno.serve(async (req) => {
         },
       });
 
-      console.log(`Created new Stripe customer ${newCustomer.id} for user ${user.id}`);
-
       const { error: createCustomerError } = await supabase.from('stripe_customers').insert({
         user_id: user.id,
         customer_id: newCustomer.id,
       });
 
       if (createCustomerError) {
-        console.error('Failed to save customer information in the database', createCustomerError);
-
-        // Try to clean up both the Stripe customer and subscription record
+        await logCheckoutAttempt(user.id, false, 'Failed to create customer mapping');
         try {
           await stripe.customers.del(newCustomer.id);
-          await supabase.from('stripe_subscriptions').delete().eq('customer_id', newCustomer.id);
         } catch (deleteError) {
           console.error('Failed to clean up after customer mapping error:', deleteError);
         }
-
         return corsResponse({ error: 'Failed to create customer mapping' }, 500);
       }
 
@@ -128,27 +158,21 @@ Deno.serve(async (req) => {
         });
 
         if (createSubscriptionError) {
-          console.error('Failed to save subscription in the database', createSubscriptionError);
-
-          // Try to clean up the Stripe customer since we couldn't create the subscription
+          await logCheckoutAttempt(user.id, false, 'Failed to create subscription record');
           try {
             await stripe.customers.del(newCustomer.id);
           } catch (deleteError) {
-            console.error('Failed to delete Stripe customer after subscription creation error:', deleteError);
+            console.error('Failed to clean up after subscription creation error:', deleteError);
           }
-
-          return corsResponse({ error: 'Unable to save the subscription in the database' }, 500);
+          return corsResponse({ error: 'Failed to create subscription record' }, 500);
         }
       }
 
       customerId = newCustomer.id;
-
-      console.log(`Successfully set up new customer ${customerId} with subscription record`);
     } else {
       customerId = customer.customer_id;
 
       if (mode === 'subscription') {
-        // Verify subscription exists for existing customer
         const { data: subscription, error: getSubscriptionError } = await supabase
           .from('stripe_subscriptions')
           .select('status')
@@ -156,28 +180,25 @@ Deno.serve(async (req) => {
           .maybeSingle();
 
         if (getSubscriptionError) {
-          console.error('Failed to fetch subscription information from the database', getSubscriptionError);
-
+          await logCheckoutAttempt(user.id, false, 'Failed to fetch subscription information');
           return corsResponse({ error: 'Failed to fetch subscription information' }, 500);
         }
 
         if (!subscription) {
-          // Create subscription record for existing customer if missing
           const { error: createSubscriptionError } = await supabase.from('stripe_subscriptions').insert({
             customer_id: customerId,
             status: 'not_started',
           });
 
           if (createSubscriptionError) {
-            console.error('Failed to create subscription record for existing customer', createSubscriptionError);
-
-            return corsResponse({ error: 'Failed to create subscription record for existing customer' }, 500);
+            await logCheckoutAttempt(user.id, false, 'Failed to create subscription record');
+            return corsResponse({ error: 'Failed to create subscription record' }, 500);
           }
         }
       }
     }
 
-    // create Checkout Session
+    // Create Checkout Session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
@@ -190,10 +211,12 @@ Deno.serve(async (req) => {
       mode,
       success_url,
       cancel_url,
+      metadata: {
+        userId: user.id,
+      },
     });
 
-    console.log(`Created checkout session ${session.id} for customer ${customerId}`);
-
+    await logCheckoutAttempt(user.id, true);
     return corsResponse({ sessionId: session.id, url: session.url });
   } catch (error: any) {
     console.error(`Checkout error: ${error.message}`);
