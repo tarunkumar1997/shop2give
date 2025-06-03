@@ -7,13 +7,11 @@ export default {
         brand: {
           pink: '#FFF3F1',
           teal: {
-            light: '#D3F2EE',
-            DEFAULT: '#009688',
-            dark: '#007B6F'
+            DEFAULT: '#4CBEB6',
+            dark: '#3A9E98',
+            light: '#87D7CC'
           },
-          sage: '#AACDBE',
-          charcoal: '#333333',
-          cream: '#FFFFFF'
+          charcoal: '#1A2C34'
         }
       },
       fontFamily: {
@@ -21,11 +19,11 @@ export default {
         serif: ['Playfair Display', 'Georgia', 'serif']
       },
       borderRadius: {
-        '2xl': '1.25rem'
+        '2xl': '12px'
       },
       boxShadow: {
         'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
-        'glow': '0 2px 6px rgba(0, 150, 136, 0.3)'
+        'glow': '0 2px 6px rgba(76, 190, 182, 0.3)'
       }
     }
   },
