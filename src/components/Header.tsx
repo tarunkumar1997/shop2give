@@ -21,7 +21,7 @@ export function Header() {
     <header className="sticky top-0 z-20 bg-brand-teal shadow-sm">
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <div className="flex items-center">
-          <Link to="/">
+          <Link to="/categories">
             <Logo className="text-white" />
           </Link>
         </div>
