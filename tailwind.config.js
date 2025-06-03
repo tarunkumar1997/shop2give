@@ -9,10 +9,18 @@ export default {
           teal: {
             DEFAULT: '#4CBEB6',
             dark: '#2A6D69',
-            light: '#87D7CC'
+            light: '#87D7CC',
+            medical: '#4ECDC4',
+            education: '#4CB8C4',
+            mission: '#4CBEB6',
+            community: '#3CBCB5'
           },
           charcoal: '#1A2C34',
-          cream: '#FFFAF9'
+          cream: '#FFFAF9',
+          gold: {
+            DEFAULT: '#F7DC6F',
+            dark: '#F4D03F'
+          }
         }
       },
       fontFamily: {

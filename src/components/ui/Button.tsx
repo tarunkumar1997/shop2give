@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../lib/utils';
 
 type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'tertiary';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   children: React.ReactNode;
@@ -19,8 +19,8 @@ export function Button({
   
   const variantStyles = {
     primary: 'bg-brand-teal text-white hover:bg-brand-teal-dark focus-visible:ring-brand-teal shadow-glow',
-    secondary: 'bg-white text-brand-teal hover:bg-brand-pink/10 focus-visible:ring-brand-pink shadow-soft',
-    outline: 'border-2 border-brand-teal bg-transparent text-brand-teal hover:bg-brand-pink/10 focus-visible:ring-brand-teal',
+    secondary: 'border-2 border-brand-teal bg-transparent text-brand-teal hover:bg-brand-pink/10 focus-visible:ring-brand-teal',
+    tertiary: 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:ring-gray-400'
   };
   
   const sizeStyles = {
